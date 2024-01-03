@@ -1,9 +1,9 @@
-package ru.simplemodel.app.dto;
+package ru.simplemodel.app.dto.comment;
 
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
-public class CommentPositionDTO implements Serializable {
+public class ClipperPositionDTO implements Serializable {
   @NotNull
   private Integer x;
 

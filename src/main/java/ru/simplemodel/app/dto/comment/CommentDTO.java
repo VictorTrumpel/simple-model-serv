@@ -1,4 +1,4 @@
-package ru.simplemodel.app.dto;
+package ru.simplemodel.app.dto.comment;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;

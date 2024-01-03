@@ -1,10 +1,9 @@
-package ru.simplemodel.app.dto;
-import java.io.Serializable;
+package ru.simplemodel.app.dto.comment;
 
+import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
-
-public class CameraPositionDTO implements Serializable {
+public class CameraRotationDTO implements Serializable {
   @NotNull
   private Integer x;
 

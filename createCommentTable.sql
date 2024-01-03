@@ -5,7 +5,7 @@ CREATE TABLE comment(
 	comment_text VARCHAR(250) NOT NULL,
 	date_create DATE NOT NULL,
 	date_to_fix DATE NOT NULL,
-	executor VARCHAR(250) NOT NULL~
+	executor VARCHAR(250) NOT NULL
 );
 
 ALTER TABLE comment
@@ -28,3 +28,11 @@ ADD COLUMN file_path VARCHAR NOT NULL DEFAULT '';
 
 ALTER TABLE comment
 ADD COLUMN model_name VARCHAR NOT NULL DEFAULT '';
+
+CREATE TABLE decoration (
+	decoration_name VARCHAR PRIMARY KEY,
+	decoration_type VARCHAR(250) NOT NULL,
+	quantity int NOT NULL,
+	room_id VARCHAR NOT NULL,
+	status VARCHAR(50) DEFAULT 'AWAIT' CHECK (status IN ('AWAIT', 'APPROVE', 'REFUSED'))
+);

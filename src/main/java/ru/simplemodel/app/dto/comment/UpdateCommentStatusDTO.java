@@ -1,4 +1,4 @@
-package ru.simplemodel.app.dto;
+package ru.simplemodel.app.dto.comment;
 
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
