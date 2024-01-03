@@ -19,7 +19,6 @@ import java.util.Optional;
 @RequestMapping("/decoration")
 public class DecorationController {
   private final DecorationService decorationService;
-  private final ModelMapper modelMapper;
 
   @Autowired
   public DecorationController(DecorationService decorationService, ModelMapper modelMapper) {
