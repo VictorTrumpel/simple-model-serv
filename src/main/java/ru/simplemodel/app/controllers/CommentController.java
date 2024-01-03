@@ -17,6 +17,11 @@ import ru.simplemodel.app.dto.UpdateCommentStatusDTO;
 import ru.simplemodel.app.errors.UpdateCommentStatusError;
 import ru.simplemodel.app.models.Comment;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @RestController
 @RequestMapping("/comment")
@@ -38,11 +43,15 @@ public class CommentController {
 
   @PostMapping("/add")
   public ResponseEntity<HttpStatus> addComment(@RequestBody @Valid CommentDTO commentDTO) {
-    Comment comment = convertToComment(commentDTO);
+    try {
+      Comment comment = convertToComment(commentDTO);
 
-    commentService.addComment(comment);
+      commentService.addComment(comment);
 
-    return ResponseEntity.ok(HttpStatus.OK);
+      return ResponseEntity.ok(HttpStatus.OK);
+    } catch (EnumConstantNotPresentException | JsonProcessingException e) {
+      return ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+    }
   }
 
   @PutMapping("/update-status")
@@ -69,13 +78,37 @@ public class CommentController {
     return ResponseEntity.ok(HttpStatus.OK);
   }
 
+  private Comment convertToComment(CommentDTO commentDTO) throws JsonMappingException, JsonProcessingException {
+    Comment comment = modelMapper.map(commentDTO, Comment.class);
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    String stringCameraPosition = objectMapper.writeValueAsString(commentDTO.getCameraPosition());
+    String stringCameraRotation = objectMapper.writeValueAsString(commentDTO.getCameraRotation());
+    String stringCommentPosition = objectMapper.writeValueAsString(commentDTO.getPosition());
+    String stringClipperPositions = objectMapper.writeValueAsString(commentDTO.getClipperPositions());
+
+    JsonNode cameraPositionJsonNode = objectMapper.readTree(stringCameraPosition);
+    JsonNode cameraRotationJsonNode = objectMapper.readTree(stringCameraRotation);
+    JsonNode commentPositionJsonNode = objectMapper.readTree(stringCommentPosition);
+    JsonNode clipperPositionsJsonNode = objectMapper.readTree(stringClipperPositions);
+
+    comment.setCameraPosition(cameraPositionJsonNode);
+    comment.setCameraRotation(cameraRotationJsonNode);
+    comment.setPosition(commentPositionJsonNode);
+    comment.setClipperPositions(clipperPositionsJsonNode);
+
+    return comment;
+  }
+  
   @ExceptionHandler
   private ResponseEntity<UpdateCommentStatusError> handleException(UpdateCommentStatusError e) {
-      return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
   }
 
-  private Comment convertToComment(CommentDTO commentDTO) {
-    return modelMapper.map(commentDTO, Comment.class);
+  @ExceptionHandler
+  private ResponseEntity<JsonProcessingException> handleJsonException(JsonProcessingException e) {
+    return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
   }
 
   private String bindingResultToString(BindingResult bindingResult) {

@@ -1,12 +1,13 @@
 package ru.simplemodel.app.dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
-import java.util.Optional;
-
 public class CommentDTO {
   @Size(min = 1, max = 250)
   @NotEmpty(message = "Элемент не может быть пустым")
@@ -30,6 +31,46 @@ public class CommentDTO {
   @Size(min = 1, max = 250)
   @NotEmpty(message = "Исполнитель не может быть пустым")
   private String executor;
+
+  @Valid
+  @NotNull(message = "Положение камеры не может быть пустым")
+  private CameraPositionDTO cameraPosition;
+
+  @Valid
+  @NotNull(message = "Поворот камеры не может быть пустым")
+  private CameraRotationDTO cameraRotation;
+
+  @Valid
+  @NotNull(message = "Позиция комментария не может быть пустой")
+  private CommentPositionDTO position;
+
+  @Valid
+  @NotNull(message = "Позиции подрезок должны быть переданы")
+  private List<ClipperPositionDTO> clipperPositions;  
+
+  public CameraRotationDTO getCameraRotation() {
+    return cameraRotation;
+  }
+
+  public void setCameraRotation(CameraRotationDTO cameraRotation) {
+    this.cameraRotation = cameraRotation;
+  }
+
+  public CommentPositionDTO getPosition() {
+    return position;
+  }
+
+  public void setPosition(CommentPositionDTO position) {
+    this.position = position;
+  }
+
+  public CameraPositionDTO getCameraPosition() {
+    return cameraPosition;
+  }
+
+  public void setCameraPosition(CameraPositionDTO cameraPosition) {
+    this.cameraPosition = cameraPosition;
+  }
 
   public String getElementName() {
     return elementName;
@@ -88,5 +129,13 @@ public class CommentDTO {
       System.out.println(e);
       return new Date();
     }
+  }
+
+  public List<ClipperPositionDTO> getClipperPositions() {
+    return clipperPositions;
+  }
+
+  public void setClipperPositions(List<ClipperPositionDTO> clipperPositions) {
+    this.clipperPositions = clipperPositions;
   }
 }

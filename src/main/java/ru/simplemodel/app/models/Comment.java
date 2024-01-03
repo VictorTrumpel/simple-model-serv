@@ -2,7 +2,14 @@ package ru.simplemodel.app.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Type;
+
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.vladmihalcea.hibernate.type.json.JsonNodeBinaryType;
+import ru.simplemodel.app.dto.CameraPositionDTO;
 import java.util.Date;
 
 @Entity
@@ -38,12 +45,57 @@ public class Comment {
 
   @Column(name = "executor")
   @Size(min = 1, max = 250)
-  @NotNull(message = "Исполнитель не может быть пустым")
+  @NotNull()
   private String executor;
 
   @Column(name = "status")
   @Size(min = 1, max = 50)
-  private String status;
+  @NotNull
+  private String status = "AWAIT";
+
+  @Type(type = "com.vladmihalcea.hibernate.type.json.JsonNodeBinaryType")
+  @Column(name = "camera_position")
+  @NotNull()
+  private JsonNode cameraPosition;
+
+  @Type(type = "com.vladmihalcea.hibernate.type.json.JsonNodeBinaryType")
+  @Column(name = "camera_rotation")
+  @NotNull()
+  private JsonNode cameraRotation;
+
+  @Type(type = "com.vladmihalcea.hibernate.type.json.JsonNodeBinaryType")
+  @Column(name = "position")
+  @NotNull()
+  private JsonNode position;
+
+  @Type(type = "com.vladmihalcea.hibernate.type.json.JsonNodeBinaryType")
+  @Column(name = "clipper_positions")
+  @NotNull()
+  private JsonNode clipperPositions;
+
+  public JsonNode getCameraRotation() {
+    return cameraRotation;
+  }
+
+  public void setCameraRotation(JsonNode cameraRotation) {
+    this.cameraRotation = cameraRotation;
+  }
+
+  public JsonNode getPosition() {
+    return position;
+  }
+
+  public void setPosition(JsonNode position) {
+    this.position = position;
+  }
+
+  public void setCameraPosition(JsonNode cameraPosition) {
+    this.cameraPosition = cameraPosition;
+  }
+
+  public JsonNode getCameraPosition() {
+    return cameraPosition;
+  }
 
   public Integer getCommentId() {
     return commentId;
@@ -114,5 +166,13 @@ public class Comment {
     return "Comment [commentId=" + commentId + ", elementName=" + elementName + ", commentTitle=" + commentTitle
         + ", commentText=" + commentText + ", dateCreate=" + dateCreate + ", dateToFix=" + dateToFix + ", executor="
         + executor + ", status=" + status + "]";
+  }
+
+  public JsonNode getClipperPositions() {
+    return clipperPositions;
+  }
+
+  public void setClipperPositions(JsonNode clipperPositions) {
+    this.clipperPositions = clipperPositions;
   }
 }

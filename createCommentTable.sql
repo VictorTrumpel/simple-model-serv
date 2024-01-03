@@ -6,7 +6,19 @@ CREATE TABLE comment(
 	date_create DATE NOT NULL,
 	date_to_fix DATE NOT NULL,
 	executor VARCHAR(250) NOT NULL
-)
+);
 
 ALTER TABLE comment
 ADD COLUMN status VARCHAR(50) DEFAULT 'AWAIT' CHECK (status IN ('AWAIT', 'PROCESS', 'COMPLETE'));
+
+ALTER TABLE comment
+ADD COLUMN camera_position JSONB DEFAULT '{}';
+
+ALTER TABLE comment
+ADD COLUMN camera_rotation JSONB DEFAULT '{}';
+
+ALTER TABLE comment
+ADD COLUMN position JSONB DEFAULT '{}';
+
+ALTER TABLE comment
+ADD COLUMN clipper_positions JSONB DEFAULT '{}';
