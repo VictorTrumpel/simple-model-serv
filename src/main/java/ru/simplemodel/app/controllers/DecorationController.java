@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.simplemodel.app.dto.decoration.UpdateDecorationDTO;
 import ru.simplemodel.app.models.Decoration;
 import ru.simplemodel.app.services.DecorationService;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +20,7 @@ public class DecorationController {
   private final DecorationService decorationService;
 
   @Autowired
-  public DecorationController(DecorationService decorationService, ModelMapper modelMapper) {
-    this.modelMapper = modelMapper;
+  public DecorationController(DecorationService decorationService) {
     this.decorationService = decorationService;
   }
 
