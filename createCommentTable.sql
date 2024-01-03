@@ -5,7 +5,7 @@ CREATE TABLE comment(
 	comment_text VARCHAR(250) NOT NULL,
 	date_create DATE NOT NULL,
 	date_to_fix DATE NOT NULL,
-	executor VARCHAR(250) NOT NULL
+	executor VARCHAR(250) NOT NULL~
 );
 
 ALTER TABLE comment
@@ -22,3 +22,9 @@ ADD COLUMN position JSONB DEFAULT '{}';
 
 ALTER TABLE comment
 ADD COLUMN clipper_positions JSONB DEFAULT '{}';
+
+ALTER TABLE comment
+ADD COLUMN file_path VARCHAR NOT NULL DEFAULT '';
+
+ALTER TABLE comment
+ADD COLUMN model_name VARCHAR NOT NULL DEFAULT '';

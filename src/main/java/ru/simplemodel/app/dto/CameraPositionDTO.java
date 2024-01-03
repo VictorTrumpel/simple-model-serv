@@ -3,7 +3,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.databind.JsonNode;
 
 public class CameraPositionDTO implements Serializable {
   @NotNull

@@ -8,8 +8,6 @@ import org.hibernate.annotations.Type;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.vladmihalcea.hibernate.type.json.JsonNodeBinaryType;
-import ru.simplemodel.app.dto.CameraPositionDTO;
 import java.util.Date;
 
 @Entity
@@ -72,6 +70,21 @@ public class Comment {
   @Column(name = "clipper_positions")
   @NotNull()
   private JsonNode clipperPositions;
+
+  @Column(name = "file_path")
+  @NotNull()
+  private String filePath;
+
+  @Column(name = "model_name")
+  @NotNull()
+  private String modelName;
+
+  @Override
+  public String toString() {
+    return "Comment [commentId=" + commentId + ", elementName=" + elementName + ", commentTitle=" + commentTitle
+        + ", commentText=" + commentText + ", dateCreate=" + dateCreate + ", dateToFix=" + dateToFix + ", executor="
+        + executor + ", status=" + status + "]";
+  }
 
   public JsonNode getCameraRotation() {
     return cameraRotation;
@@ -161,18 +174,27 @@ public class Comment {
     this.status = status;
   }
 
-  @Override
-  public String toString() {
-    return "Comment [commentId=" + commentId + ", elementName=" + elementName + ", commentTitle=" + commentTitle
-        + ", commentText=" + commentText + ", dateCreate=" + dateCreate + ", dateToFix=" + dateToFix + ", executor="
-        + executor + ", status=" + status + "]";
-  }
-
   public JsonNode getClipperPositions() {
     return clipperPositions;
   }
 
   public void setClipperPositions(JsonNode clipperPositions) {
     this.clipperPositions = clipperPositions;
+  }
+
+  public String getFilePath() {
+    return filePath;
+  }
+
+  public void setFilePath(String filePath) {
+    this.filePath = filePath;
+  }
+
+  public String getModelName() {
+    return modelName;
+  }
+
+  public void setModelName(String modelName) {
+    this.modelName = modelName;
   }
 }

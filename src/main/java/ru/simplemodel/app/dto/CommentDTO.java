@@ -48,6 +48,12 @@ public class CommentDTO {
   @NotNull(message = "Позиции подрезок должны быть переданы")
   private List<ClipperPositionDTO> clipperPositions;  
 
+  @NotNull(message = "Путь до файлов не может быть пустым")
+  private String filePath;
+
+  @NotNull(message = "Имя модели не может быть пустым")
+  private String modelName;
+
   public CameraRotationDTO getCameraRotation() {
     return cameraRotation;
   }
@@ -137,5 +143,21 @@ public class CommentDTO {
 
   public void setClipperPositions(List<ClipperPositionDTO> clipperPositions) {
     this.clipperPositions = clipperPositions;
+  }
+
+  public String getFilePath() {
+    return filePath;
+  }
+
+  public void setFilePath(String filePath) {
+    this.filePath = filePath;
+  }
+
+  public String getModelName() {
+    return modelName;
+  }
+
+  public void setModelName(String modelName) {
+    this.modelName = modelName;
   }
 }

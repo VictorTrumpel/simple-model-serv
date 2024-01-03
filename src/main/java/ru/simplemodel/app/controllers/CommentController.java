@@ -7,11 +7,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.modelmapper.ModelMapper;
 import ru.simplemodel.app.services.CommentService;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
-
 import ru.simplemodel.app.dto.CommentDTO;
 import ru.simplemodel.app.dto.UpdateCommentStatusDTO;
 import ru.simplemodel.app.errors.UpdateCommentStatusError;
