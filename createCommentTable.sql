@@ -36,3 +36,7 @@ CREATE TABLE decoration (
 	room_id VARCHAR NOT NULL,
 	status VARCHAR(50) DEFAULT 'AWAIT' CHECK (status IN ('AWAIT', 'APPROVE', 'REFUSED'))
 );
+
+CREATE TABLE container (
+	container_name VARCHAR PRIMARY KEY
+);
