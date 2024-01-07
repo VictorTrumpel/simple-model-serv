@@ -38,5 +38,6 @@ CREATE TABLE decoration (
 );
 
 CREATE TABLE container (
-	container_name VARCHAR PRIMARY KEY
+	container_name VARCHAR PRIMARY KEY,
+	date_create DATE NOT NULL
 );

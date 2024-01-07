@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import ru.simplemodel.app.models.Container;
 import ru.simplemodel.app.services.ContainerService;
 import ru.simplemodel.app.yAPI.YFileApi;
+
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -42,6 +44,7 @@ public class ContainerController {
 
     Container container = new Container();
     container.setContainerName(containerName);
+    container.setDateCreate(new Date(System.currentTimeMillis()));
 
     containerService.add(container);
 
@@ -63,6 +66,11 @@ public class ContainerController {
   @GetMapping("/{name}")
   public JsonNode getContainerInfo(@PathVariable("name") String containerName) throws Exception {
     return yFileApi.getDirInfo(containerName);
+  }
+
+  @GetMapping("")
+  public List<Container> getAllContainerNames() {
+    return containerService.getAll();
   }
 
   @ExceptionHandler
